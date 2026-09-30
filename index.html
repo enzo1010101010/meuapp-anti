@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CalculaNota - Calcule sua Média Escolar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-container">
+    <!-- Cartão Principal de Cálculo -->
+    <section class="card main-calculator-card">
+      <!-- Cabeçalho -->
+      <header class="card-header">
+        <div class="logo-badge">
+          <svg class="icon-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <h1 class="app-title">CalculaNota</h1>
+        <p class="app-description">Calcule sua média escolar de forma rápida e fácil.</p>
+      </header>
+
+      <!-- Mensagem de Validação / Erro Geral -->
+      <div id="mensagem-alerta" class="alert-box hidden" role="alert" aria-live="polite">
+        <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="mensagem-texto"></span>
+      </div>
+
+      <!-- Formulário de Aluno, Matéria e 4 Notas -->
+      <form id="form-notas" class="grades-form" novalidate>
+        <!-- Campo Nome do Aluno -->
+        <div class="form-group" id="group-aluno">
+          <label for="aluno-nome" class="form-label">
+            <span>Nome do Aluno(a)</span>
+            <span class="range-hint">Identificação do estudante</span>
+          </label>
+          <div class="input-wrapper input-wrapper-materia">
+            <svg class="input-inner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input
+              type="text"
+              id="aluno-nome"
+              name="aluno_nome"
+              class="form-input form-input-text"
+              placeholder="Digite seu nome (ex: João Silva)"
+              autocomplete="name"
+            >
+          </div>
+          <small class="field-error" id="error-aluno"></small>
+        </div>
+
+        <!-- Campo Nome da Matéria -->
+        <div class="form-group" id="group-materia">
+          <label for="materia-nome" class="form-label">
+            <span>Matéria / Disciplina</span>
+            <span class="range-hint">Ex: Matemática, História, Português...</span>
+          </label>
+          <div class="input-wrapper input-wrapper-materia">
+            <svg class="input-inner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+            <input
+              type="text"
+              id="materia-nome"
+              name="materia_nome"
+              class="form-input form-input-text"
+              placeholder="Digite o nome da matéria"
+              autocomplete="off"
+            >
+          </div>
+          <small class="field-error" id="error-materia"></small>
+        </div>
+
+        <!-- Grade de 4 Notas -->
+        <div class="input-grid input-grid-4">
+          <!-- Nota 1 -->
+          <div class="form-group" id="group-nota1">
+            <label for="nota1" class="form-label">
+              <span>Nota 1</span>
+              <span class="range-hint">(0 a 10)</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="nota1"
+                name="nota1"
+                class="form-input"
+                placeholder="Ex: 7,5"
+                inputmode="decimal"
+                autocomplete="off"
+              >
+            </div>
+            <small class="field-error" id="error-nota1"></small>
+          </div>
+
+          <!-- Nota 2 -->
+          <div class="form-group" id="group-nota2">
+            <label for="nota2" class="form-label">
+              <span>Nota 2</span>
+              <span class="range-hint">(0 a 10)</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="nota2"
+                name="nota2"
+                class="form-input"
+                placeholder="Ex: 8,0"
+                inputmode="decimal"
+                autocomplete="off"
+              >
+            </div>
+            <small class="field-error" id="error-nota2"></small>
+          </div>
+
+          <!-- Nota 3 -->
+          <div class="form-group" id="group-nota3">
+            <label for="nota3" class="form-label">
+              <span>Nota 3</span>
+              <span class="range-hint">(0 a 10)</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="nota3"
+                name="nota3"
+                class="form-input"
+                placeholder="Ex: 6,0"
+                inputmode="decimal"
+                autocomplete="off"
+              >
+            </div>
+            <small class="field-error" id="error-nota3"></small>
+          </div>
+
+          <!-- Nota 4 -->
+          <div class="form-group" id="group-nota4">
+            <label for="nota4" class="form-label">
+              <span>Nota 4</span>
+              <span class="range-hint">(0 a 10)</span>
+            </label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="nota4"
+                name="nota4"
+                class="form-input"
+                placeholder="Ex: 8,5"
+                inputmode="decimal"
+                autocomplete="off"
+              >
+            </div>
+            <small class="field-error" id="error-nota4"></small>
+          </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="actions-group">
+          <button type="submit" id="btn-calcular" class="btn btn-primary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="2" width="16" height="20" rx="2"/>
+              <line x1="8" y1="6" x2="16" y2="6"/>
+              <line x1="16" y1="14" x2="16" y2="18"/>
+              <path d="M16 10h.01"/>
+              <path d="M12 10h.01"/>
+              <path d="M8 10h.01"/>
+              <path d="M12 14h.01"/>
+              <path d="M8 14h.01"/>
+              <path d="M12 18h.01"/>
+              <path d="M8 18h.01"/>
+            </svg>
+            <span>Calcular Média e Salvar</span>
+          </button>
+
+          <button type="button" id="btn-limpar" class="btn btn-secondary">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 6h18"/>
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+              <line x1="10" y1="11" x2="10" y2="17"/>
+              <line x1="14" y1="11" x2="14" y2="17"/>
+            </svg>
+            <span>Limpar</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Área de Resultado do Cálculo Atual -->
+      <section id="area-resultado" class="result-area hidden" aria-live="polite">
+        <div class="result-card" id="result-card">
+          <div class="result-badge-icon" id="result-icon-wrapper">
+            <!-- Ícone dinâmico via JS -->
+          </div>
+          <div class="result-info">
+            <div class="result-header-row">
+              <span class="result-label">Sua média final:</span>
+              <span id="resultado-aluno-badge" class="result-aluno-badge"></span>
+              <span id="resultado-materia-badge" class="result-materia-badge"></span>
+            </div>
+            <div class="result-score">
+              <span id="valor-media">0,00</span>
+              <span class="score-total">/ 10</span>
+            </div>
+            <div class="result-status-pill" id="status-pill">
+              <span id="texto-situacao">Aprovado!</span>
+            </div>
+            <p id="mensagem-personalizada" class="result-feedback-msg"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rodapé discreto -->
+      <footer class="card-footer">
+        <p>Critério: Média igual ou maior que 5,0 para aprovação.</p>
+      </footer>
+    </section>
+
+    <!-- Painel de Matérias Salvas e Acompanhamento do Ano Letivo -->
+    <section class="card dashboard-card" id="painel-ano-letivo">
+      <div class="dashboard-header">
+        <div class="dashboard-title-group">
+          <div class="dashboard-icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="dashboard-title">Minhas Matérias Salvas</h2>
+            <p class="dashboard-subtitle">Acompanhe se você passou ou não de ano em cada disciplina</p>
+          </div>
+        </div>
+        <button type="button" id="btn-limpar-todas" class="btn-clear-all hidden" title="Apagar todas as matérias salvas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 6h18"/>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+          </svg>
+          <span>Limpar Tudo</span>
+        </button>
+      </div>
+
+      <!-- Resumo Geral do Ano Letivo -->
+      <div class="year-summary-grid" id="year-summary">
+        <div class="summary-metric-card">
+          <span class="metric-label">Total de Matérias</span>
+          <span class="metric-value" id="total-materias">0</span>
+        </div>
+        <div class="summary-metric-card metric-success">
+          <span class="metric-label">Aprovadas</span>
+          <span class="metric-value" id="total-aprovadas">0</span>
+        </div>
+        <div class="summary-metric-card metric-danger">
+          <span class="metric-label">Nota Vermelha</span>
+          <span class="metric-value" id="total-reprovadas">0</span>
+        </div>
+        <div class="summary-metric-card metric-status-year" id="card-status-ano">
+          <span class="metric-label">Situação no Ano</span>
+          <span class="metric-status-text" id="status-ano-texto">Aguardando matérias</span>
+        </div>
+      </div>
+
+      <!-- Banner Destacado com Mensagem se Passou, Recuperação ou Reprovou de Ano -->
+      <div id="banner-resultado-ano" class="year-outcome-banner hidden" role="alert" aria-live="polite">
+        <div class="year-outcome-icon" id="year-outcome-icon">
+          <!-- Ícone dinâmico via JS -->
+        </div>
+        <div class="year-outcome-content">
+          <h3 class="year-outcome-title" id="year-outcome-title"></h3>
+          <p class="year-outcome-desc" id="year-outcome-desc"></p>
+        </div>
+      </div>
+
+      <!-- Lista Dinâmica de Matérias Salvas -->
+      <div class="materias-container" id="materias-container">
+        <!-- Preenchido via JavaScript -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
+          </div>
+          <p class="empty-state-title">Nenhuma matéria salva ainda</p>
+          <p class="empty-state-subtitle">Preencha o nome da disciplina e as 4 notas acima para começar a registrar seu boletim anual!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
